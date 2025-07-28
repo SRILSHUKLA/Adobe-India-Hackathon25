@@ -26,7 +26,7 @@ This solution extracts a structured outline (title, H1, H2, H3 headings) from PD
 ```
 
 ## Approach
-- **Text Extraction:** Uses PyMuPDF to extract text, font size, font flags, and position from each page.
+- **Text Extraction:** Uses PDFminer to extract text, font size, font flags, and position from each page.
 - **Title Detection:** Picks the largest, top-most, centered text on page 1.
 - **Heading Detection:** Clusters font sizes (KMeans) to assign H1/H2/H3, uses boldness/position heuristics.
 - **No Hardcoding:** All logic is dynamic and generalizes to any PDF.
@@ -59,7 +59,7 @@ Each output JSON matches the schema in `sample_dataset/schema/output_schema.json
 ```
 
 ## Dependencies
-- PyMuPDF==1.23.2
+- pdfminer.six
 - numpy
 - scikit-learn
 
