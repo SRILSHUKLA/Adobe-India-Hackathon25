@@ -8,42 +8,6 @@ The core of the solution is a custom-trained heading classification model that p
 
 Persona-based content filtering and semantic ranking using sentence embeddings and zero-shot classification ensure that extracted content is highly relevant to the user's task.
 
-## Installation
-
-### Dependencies
-
-The project requires the following Python packages (see `requirements.txt`):
-
-- PyMuPDF==1.23.2
-- numpy
-- scikit-learn
-- nltk
-- sentence_transformers
-- torch
-- transformers
-- pdfminer.six
-
-### Docker
-
-A Dockerfile is provided for easy environment setup. It uses Python 3.10 slim image and installs dependencies from `requirements.txt`. Model cache directories are set via environment variables inside the container.
-
-To build and run the Docker container:
-
-```bash
-docker build -t challenge1b .
-docker run --rm -v $(pwd):/app/Challenge_1b challenge1b
-```
-
-## Usage
-
-The main processing script is `process_documents.py`. It loads input configuration JSON files specifying documents, persona, and task, processes the PDFs to extract relevant sections, and outputs structured JSON results.
-
-Example command:
-
-```bash
-python process_documents.py
-```
-
 ## Project Structure
 
 ```
@@ -59,6 +23,24 @@ Challenge_1b/
 ├── requirements.txt               # Python dependencies
 ├── src/                          # Model training and inference code
 └── test_model.py                 # Model testing utilities
+```
+## How to Run
+
+The main processing script is `process_documents.py`. It loads input configuration JSON files specifying documents, persona, and task, processes the PDFs to extract relevant sections, and outputs structured JSON results.
+
+### Navigate to Challenge_1b directory
+
+```bash
+cd Challenge_1b
+```
+**Ensure that all input scenarios follow the same directory struture, i.e. make a new Collection x and save the pdfs in Collection x/PDFs and input json path is Collection x/challenge1b_input.json**
+### Build Docker
+```bash
+docker build -t challenge1b-python-slim .
+```
+### Run Docker
+```bash
+docker run --rm -it --network none -w /app challenge1b-python-slim python process_documents.py 
 ```
 
 ## Main Components
@@ -115,7 +97,7 @@ Challenge_1b/
 
 ## Notes
 
-- The heading classification model (`heading_classifier.pth`) was trained using a custom dataset created by hand-annotating PDFs provided by the hackathon organizers, combined with additional annotations. The training pipeline is implemented in the `src/` directory.
+- The heading classification model (`heading_classifier.pth`) was trained using a custom dataset created by hand-annotating PDFs provided by the hackathon organizers, combined with additional PDFs and annotations. The training pipeline is implemented in the `src/` directory.
 
 - Persona-based filtering uses keyword and antonym lists to include or exclude content relevant to the user's role and task.
 
