@@ -32,17 +32,17 @@ This solution extracts a structured outline (title, H1, H2, H3 headings) from PD
 - **No Hardcoding:** All logic is dynamic and generalizes to any PDF.
 
 ## How to Build and Run
+### Navigate to Challenge_1a
+```bash
+  cd Challenge_1a
+```
 ### Build Docker Image
 ```bash
 docker build --platform=linux/amd64 -t pdf-outline-extractor:latest .
 ```
 ### Run Docker Container
 ```bash
-docker run --rm \
-  -v $(pwd)/input:/app/input \
-  -v $(pwd)/output:/app/output \
-  --network none \
-  pdf-outline-extractor:latest
+docker run --rm   -v "$(pwd)/input:/app/input"   -v "$(pwd)/output:/app/output"   --network none   mysolutionname:somerandomidentifier
 ```
 
 ## Output Format
